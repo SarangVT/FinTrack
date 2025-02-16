@@ -37,7 +37,7 @@ const HomeScreen = () => {
                 <div className="bg-cover bg-center h-screen w-full"
                     style={{ backgroundImage: `url(${IncomeExpenseTypical})` }} >
                     <NavBar />
-                    <p className="text-4xl font-bold text-white mt-10 text-center z-10">
+                    <p className="text-4xl font-bold text-white mt-16 text-center z-10">
                         The Smartest Finance Tracker
                     </p>
                     <p className="text-4xl font-bold text-white mt-10 text-center transform transition duration-1000 ease-in-out hover:scale-105 animate-pulse z-10">
