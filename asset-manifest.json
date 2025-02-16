@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/FinTrack/static/css/main.bb9ef089.css",
-    "main.js": "/FinTrack/static/js/main.07487cc2.js",
+    "main.css": "/FinTrack/static/css/main.9bb33d8b.css",
+    "main.js": "/FinTrack/static/js/main.bffbde4f.js",
     "static/js/239.dfdb0d71.chunk.js": "/FinTrack/static/js/239.dfdb0d71.chunk.js",
     "static/js/213.042bb37f.chunk.js": "/FinTrack/static/js/213.042bb37f.chunk.js",
     "static/js/732.83e8d117.chunk.js": "/FinTrack/static/js/732.83e8d117.chunk.js",
     "static/media/StockMarketTypical.png": "/FinTrack/static/media/StockMarketTypical.d3c67fb2300c48ad7bc9.png",
     "static/media/IncomeExpenseTypical.jpeg": "/FinTrack/static/media/IncomeExpenseTypical.fd776649fb065f5b7335.jpeg",
     "index.html": "/FinTrack/index.html",
-    "main.bb9ef089.css.map": "/FinTrack/static/css/main.bb9ef089.css.map",
-    "main.07487cc2.js.map": "/FinTrack/static/js/main.07487cc2.js.map",
+    "main.9bb33d8b.css.map": "/FinTrack/static/css/main.9bb33d8b.css.map",
+    "main.bffbde4f.js.map": "/FinTrack/static/js/main.bffbde4f.js.map",
     "239.dfdb0d71.chunk.js.map": "/FinTrack/static/js/239.dfdb0d71.chunk.js.map",
     "213.042bb37f.chunk.js.map": "/FinTrack/static/js/213.042bb37f.chunk.js.map",
     "732.83e8d117.chunk.js.map": "/FinTrack/static/js/732.83e8d117.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bb9ef089.css",
-    "static/js/main.07487cc2.js"
+    "static/css/main.9bb33d8b.css",
+    "static/js/main.bffbde4f.js"
   ]
 }
