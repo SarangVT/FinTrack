@@ -40,8 +40,8 @@ export const UserContextProvider = ({children}) => {
         }
     };
 
-    const API_KEY = "";
-    // const API_KEY = "7851464a4815e3ccae800ae51c400e73";
+    // const API_KEY = "";
+    const API_KEY = "7851464a4815e3ccae800ae51c400e73";
     const BASE_URL = "https://api.currencylayer.com/live";
 
     useEffect(() => {
