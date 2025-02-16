@@ -23,7 +23,7 @@ export const UserContextProvider = ({children}) => {
             console.error("Invalid token:", error);
             return null;
         }
-    }, [userName]);
+    }, []);
     useEffect(()=> {
         fetchTransactions();
     },[userName]);
