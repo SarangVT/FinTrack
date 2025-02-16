@@ -50,7 +50,7 @@ const ExpensePieChart = ({ data , symbol}) => {
   };
 
   const { data: chartData, totalExpense } = getChartData();
-  const hideLegend = chartData.length > 3;
+  const hideLabel = chartData.length > 10;
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -64,8 +64,8 @@ const ExpensePieChart = ({ data , symbol}) => {
         </select>
         {viewType === "custom" && (
           <>
-            <DatePicker maxDate={new Date()} selected={startDate} onChange={setStartDate} selectsStart startDate={startDate} endDate={endDate} placeholderText="Start Date" showYearDropdown showMonthDropdown/>
-            <DatePicker maxDate={new Date()}  selected={endDate} onChange={setEndDate} selectsEnd startDate={startDate} endDate={endDate} placeholderText="End Date" showYearDropdown showMonthDropdown/>
+            <DatePicker maxDate={new Date()} selected={startDate} onChange={setStartDate} selectsStart startDate={startDate} endDate={endDate} placeholderText="Start Date" showYearDropdown showMonthDropdown dropdownMode="select"/>
+            <DatePicker maxDate={new Date()}  selected={endDate} onChange={setEndDate} selectsEnd startDate={startDate} endDate={endDate} placeholderText="End Date" showYearDropdown showMonthDropdown dropdownMode="select"/>
           </>
         )}
       </div>
@@ -74,11 +74,19 @@ const ExpensePieChart = ({ data , symbol}) => {
         <p className="text-center font-bold">Total: {symbol}{totalExpense.toFixed(2)}</p>
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
-            <Pie data={chartData} dataKey="value" nameKey="name" outerRadius={100} label={false} isAnimationActive={true}>
+            ${hideLabel ? (
+              <Pie data={chartData} dataKey="value" nameKey="name" outerRadius={100} label={false} isAnimationActive={true}>
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} style={{ outline: "none" }} />
               ))}
-            </Pie>
+              </Pie>
+            ) : (
+              <Pie data={chartData} dataKey="value" nameKey="name" outerRadius={100} label={(entry) => `${entry.name} (${entry.percentage})`} isAnimationActive={true}>
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} style={{ outline: "none" }} />
+              ))}
+              </Pie>
+            )}
             <Tooltip formatter={(value, name, props) => [`$${value.toFixed(2)} (${props.payload.percentage})`, name]} />
           </PieChart>
         </ResponsiveContainer>

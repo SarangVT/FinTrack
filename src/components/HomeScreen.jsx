@@ -16,12 +16,12 @@ const HomeScreen = () => {
     const originalTransactions = transactions ? [...transactions] : [];
     const selectedCurrency = CURRENCIES.find(c => c.code === currency);
     const currencySymbol = selectedCurrency ? selectedCurrency.symbol : "";
+
     useEffect(() => {
         if (!exchangeRates || currency === "INR") {
             setConvertedTransactions(originalTransactions);
             return;
         }
-        
         const rate = exchangeRates[`INR${currency}`];
         const updatedTransactions = originalTransactions.map((t) => ({
             ...t,
@@ -55,10 +55,8 @@ const HomeScreen = () => {
     return (
         <div className="flex flex-col items-center bg-gray-100">
             <div className="w-screen"><NavBar /></div>
-            <p className="text-4xl font-bold text-blue-600 mt-10 text-center transform transition duration-1000 ease-in-out hover:scale-105 animate-pulse">
+            <p className="text-4xl font-bold text-blue-600 mt-16 text-center transform transition duration-1000 ease-in-out hover:scale-105 animate-pulse">
                 The Smartest Finance Tracker</p>
-
-            
             <div className="mt-6 flex justify-end w-full max-w-7xl">
                 <select
                     value={currency}

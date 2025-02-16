@@ -33,7 +33,7 @@ export const handleExportCSV = (sortedTransactions, codeOfCurrency) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "transactions.csv";
+    a.download = "Transactions.csv";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -46,5 +46,5 @@ export const handleExportPDF = (sortedTransactions, codeOfCurrency) => {
     const rows = transformedData.map((row) => Object.values(row));
     const doc = new jsPDF();
     doc.autoTable({head: [columns], body: rows,});
-    doc.save("transactions.pdf");
+    doc.save("Transactions.pdf");
 };

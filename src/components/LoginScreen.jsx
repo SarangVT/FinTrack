@@ -31,7 +31,7 @@ const LoginScreen = () => {
             const response = await api.post("/auth/login", userData);
             localStorage.setItem("authToken", response.data.token);
             setUserName(response.data.user.name);
-            navigate('/dashboard');
+            navigate('/');
         } catch (error) {
             setAlert(true);
         }

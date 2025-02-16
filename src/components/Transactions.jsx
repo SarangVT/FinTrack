@@ -83,6 +83,7 @@ const TransactionsTable = ({ transactions, symbol, codeOfCurrency }) => {
           className="border p-2 rounded"
           showYearDropdown
           showMonthDropdown
+          dropdownMode="select"
         />
         <DatePicker
           selected={endDate}
@@ -92,6 +93,7 @@ const TransactionsTable = ({ transactions, symbol, codeOfCurrency }) => {
           className="border p-2 rounded"
           showMonthDropdown
           showYearDropdown
+          dropdownMode="select"
         />
         <button onClick={filterTransactions}
           className="flex items-center gap-2 bg-blue-400 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all"> 
@@ -134,17 +136,12 @@ const TransactionsTable = ({ transactions, symbol, codeOfCurrency }) => {
               <TableRow key={txn.id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell rightAlign={true}>
-                  {txn.increment ? "+" : "-"}
-                  {symbol}
-                  {txn.amount}
+                  {txn.increment ? "+" : "-"}{symbol}{txn.amount}
                 </TableCell>
                 <TableCell>{txn.description}</TableCell>
                 <TableCell>{txn.mode}</TableCell>
                 <TableCell>{format(new Date(txn.date), "dd-MM-yyyy")}</TableCell>
-                <TableCell rightAlign={true}>
-                  {symbol}
-                  {txn.currentbalance}
-                </TableCell>
+                <TableCell rightAlign={true}>{symbol}{txn.currentbalance}</TableCell>
               </TableRow>
             ))}
           </TableBody>

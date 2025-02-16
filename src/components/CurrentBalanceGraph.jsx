@@ -1,29 +1,14 @@
 import React, { useState } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { LineChart, Line, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, CartesianGrid,} from "recharts";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 
-const Select = ({ onValueChange, value, children }) => (
-  <div className="relative">
-    <select
-      value={value}
-      onChange={(e) => onValueChange(e.target.value)}
-      className="border p-2 rounded w-full"
-    >
-      {children}
-    </select>
-  </div>
-);
-
-const SelectTrigger = ({ children }) => <option disabled>{children}</option>;
-const SelectContent = ({ children }) => <>{children}</>;
-const SelectItem = ({ value, children }) => <option value={value}>{children}</option>;
-
-const BalanceGraph = ({ data }) => {
+const BalanceGraph = ({ data, symbol }) => {
   const [timeRange, setTimeRange] = useState("monthly");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [showGrid, setShowGrid] = useState(true);
 
   const filterData = () => {
     if (!Array.isArray(data) || data.length === 0) return [];
@@ -57,21 +42,23 @@ const BalanceGraph = ({ data }) => {
       };
     });
   };
+
   return (
     <div className="p-4 w-full border rounded-lg shadow-md">
       <div>
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Current Balance Graph</h2>
           <div className="flex gap-4">
-            <Select onValueChange={setTimeRange} value={timeRange}>
-              <SelectTrigger>Time Range: {timeRange}</SelectTrigger>
-              <SelectContent>
-                <SelectItem value="monthly">Monthly</SelectItem>
-                <SelectItem value="yearly">Yearly</SelectItem>
-                <SelectItem value="all-time">All Time</SelectItem>
-                <SelectItem value="custom">Custom</SelectItem>
-              </SelectContent>
-            </Select>
+            <select
+              value={timeRange}
+              onChange={(e) => setTimeRange(e.target.value)}
+              className="border p-2 rounded"
+            >
+              <option value="monthly">Monthly</option>
+              <option value="yearly">Yearly</option>
+              <option value="all-time">All Time</option>
+              <option value="custom">Custom</option>
+            </select>
             {timeRange === "custom" && (
               <div className="flex gap-2">
                 <DatePicker
@@ -82,7 +69,7 @@ const BalanceGraph = ({ data }) => {
                   showMonthDropdown
                   showYearDropdown
                   dropdownMode="select"
-                  maxDate={new Date()} 
+                  maxDate={new Date()}
                 />
                 <DatePicker
                   selected={endDate}
@@ -92,19 +79,33 @@ const BalanceGraph = ({ data }) => {
                   showMonthDropdown
                   showYearDropdown
                   dropdownMode="select"
-                  maxDate={new Date()} 
+                  maxDate={new Date()}
                 />
               </div>
             )}
+            <label className="flex items-center cursor-pointer">
+              <span className="mr-2">Grid</span>
+              <input
+                type="checkbox"
+                checked={showGrid}
+                onChange={() => setShowGrid(!showGrid)}
+                className="hidden"
+              />
+              <div className={`w-10 h-5 rounded-full p-1 flex items-center ${showGrid ? "bg-blue-400": "bg-gray-300"}`}>
+                <div
+                  className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-transform ${showGrid ? 'translate-x-5' : ''}`}
+                ></div>
+              </div>
+            </label>
           </div>
         </div>
         <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={filterData()} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" />
+          <LineChart data={filterData()} margin={{ top: 30, right: 30, left: 20, bottom: 5 }}>
             <XAxis dataKey="date" />
             <YAxis/>
-            <Tooltip />
-            <Legend />
+            <Tooltip/>
+            <Legend  formatter={(value) => {return `Current Balance (${symbol}) 💰`}}/>
+            {showGrid && <CartesianGrid strokeDasharray="3 3" />}
             <Line type="monotone" dataKey="Balance" stroke="#2196F3" strokeWidth={2} dot={false} />
           </LineChart>
         </ResponsiveContainer>

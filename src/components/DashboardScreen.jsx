@@ -11,12 +11,13 @@ const DashboardScreen = () => {
     const [currBalance, setCurrBalance] = useState(0);
     const [currency, setCurrency] = useState("INR");
     const [convertedTransactions, setConvertedTransactions] = useState([]);
+    const [defaultSpendingLimit, setDefaultSpendingLimit] = useState(0);
     const [spendingLimit, setSpendingLimit] = useState(0);
-
     const originalTransactions = transactions ? [...transactions] : [];
     const selectedCurrency = CURRENCIES.find(c => c.code === currency);
     const currencySymbol = selectedCurrency ? selectedCurrency.symbol : "";
     const currencyCode = selectedCurrency ? selectedCurrency.code : "";
+    
     useEffect(() => {
         if (!exchangeRates || currency === "INR") {
             setConvertedTransactions(originalTransactions);
@@ -30,6 +31,7 @@ const DashboardScreen = () => {
             currentbalance: (t.currentbalance * rate).toFixed(2),
         }));
         setConvertedTransactions(updatedTransactions);
+        if(exchangeRates && currency!="INR") {setSpendingLimit((defaultSpendingLimit * rate).toFixed(2));}
     }, [currency, exchangeRates, transactions]);
 
     useEffect(() => {
@@ -37,42 +39,26 @@ const DashboardScreen = () => {
             setSpendingLimit(0);
             return;
         }
-
+    
         const expensesByMonth = {};
-
+    
         transactions.forEach(({ amount, date, increment }) => {
             if (!increment) { 
                 const monthYear = date.slice(0, 7);
                 expensesByMonth[monthYear] = (expensesByMonth[monthYear] || 0) + parseFloat(amount);
             }
         });
-        
-
-        // To compute a cumulative moving average, first sort the months chronologically.
-        const sortedMonths = Object.keys(expensesByMonth).sort();
-        let cumulativeSum = 0;
-        let cumulativeCount = 0;
-        let movingAverage = 0;
-        sortedMonths.forEach((month) => {
-            cumulativeSum += expensesByMonth[month];
-            cumulativeCount++;
-            // For each month, the moving average is the average expense from the first month up to this month.
-            movingAverage = cumulativeSum / cumulativeCount;
-        });
-
-        // Convert the spending limit to the selected currency if necessary.
-        if (exchangeRates && currency !== "INR") {
-            const rate = exchangeRates[`INR${currency}`];
-            setSpendingLimit((movingAverage * rate).toFixed(2));
-        } else {
-            setSpendingLimit(movingAverage.toFixed(2));
-        }
-    }, [transactions, exchangeRates, currency]);
+        const totalExpenses = Object.values(expensesByMonth).reduce((sum, expense) => sum + expense, 0);
+        const numMonths = Object.keys(expensesByMonth).length;
+        const averageSpending = numMonths > 0 ? totalExpenses / numMonths : 0;
+        setDefaultSpendingLimit(averageSpending.toFixed(2));
+        setSpendingLimit(averageSpending.toFixed(2));
+    }, [transactions]);
 
     return (
         <div className="flex flex-col">
             <NavBar />
-            <div className="justify-end flex m-4">
+            <div className="justify-end flex m-4 mt-16">
                 <button 
                     className="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-blue-700 transition"
                     onClick={() => setShowModal(true)}
@@ -94,7 +80,7 @@ const DashboardScreen = () => {
                 </select>
             </div>
             
-            <div className="m-4 text-lg font-semibold text-gray-700">
+            <div className="m-4 text-lg font-bold text-red-500">
                 <p>Spending Limit: {currencySymbol}{spendingLimit}</p>
             </div>
 

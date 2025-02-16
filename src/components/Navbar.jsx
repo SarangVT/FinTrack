@@ -30,7 +30,7 @@ const NavBar = (props) => {
     return (
         <>
         {isMobile ? (
-        <nav className={`${userName ? "bg-gradient-to-r from-[#43b0f1] to-[#057dcd]" : "bg-black"} text-white font-bold p-3 text-[18px] px-6 flex items-center justify-between`}>
+        <nav className={`${userName ? "bg-gradient-to-r from-[#43b0f1] to-[#057dcd]" : "bg-black"} text-white font-bold p-3 text-[18px] px-6 flex items-center justify-between fixed z-50 w-full`}>
         <div className="cursor-pointer" onClick={() => setMenuOpen(!menuOpen)}>
             <FaBars size={28} />
         </div>
@@ -45,7 +45,7 @@ const NavBar = (props) => {
         )}
         </div>
         {menuOpen && (
-            <div className={`absolute top-14 left-0 w-full ${userName ? "bg-gradient-to-r from-[#43b0f1] to-[#057dcd]" : "bg-black"} shadow-md opacity-90 z-10`}>
+            <div className={`absolute top-14 left-0 w-full ${userName ? "bg-gradient-to-r from-[#43b0f1] to-[#057dcd]" : "bg-black"} shadow-md opacity-90 z-10 w-full`}>
                 <div className="flex flex-col p-4 gap-4">
                     <div className="cursor-pointer" onClick={() => { navigate('/'); setMenuOpen(false); }}>Home</div>
                     {userName && (
@@ -59,7 +59,7 @@ const NavBar = (props) => {
     </nav>
     //Desktop Starts
     ) : (
-        <div className={`flex flex-row gap-12 ${userName ? "bg-gradient-to-r from-[#43b0f1] to-[#057dcd]" : "bg-black"} text-white font-bold p-3 pl-6 items-center`}>
+        <div className={`flex flex-row gap-12 ${userName ? "bg-gradient-to-r from-[#43b0f1] to-[#057dcd]" : "bg-black"} text-white font-bold p-3 pl-6 items-center fixed w-full z-50`}>
             <div className="cursor-pointer" onClick={()=>{navigate('/')}}>Home</div>
             {userName && (<>
                 <div className="cursor-pointer" onClick={()=>{navigate('/dashboard')}}>Dashboard</div>

@@ -33,6 +33,7 @@ export const UserContextProvider = ({children}) => {
           const response = await api.get("/account");
           let data = response.data.transactions;
           data = data.reverse();
+          data.sort((a, b) => new Date(b.date) - new Date(a.date));
           setCurrBalance(data[0]?.currentbalance);
           setTransactions(data);
         } catch (error) {
