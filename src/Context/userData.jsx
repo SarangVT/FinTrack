@@ -66,8 +66,8 @@ export const UserContextProvider = ({children}) => {
             }
         };
         
-        fetchExchangeRates();
-    }, []);
+        if(userName) {fetchExchangeRates();}
+    }, [userName]);
 
     return (
         <UserContext.Provider value={{userName, setUserName, email, setEmail, currBalance, setCurrBalance, transactions, setTransactions, exchangeRates, setExchangeRates}}>
