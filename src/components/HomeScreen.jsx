@@ -7,9 +7,10 @@ import BalanceGraph from "./CurrentBalanceGraph";
 import ExpensePieChart from "./ExpensePieChart";
 import IncomePieChart from "./IncomePieChart";
 import { CURRENCIES } from "../helpers/countryCurrency";
+import IncomeExpenseTypical from "../helpers/IncomeExpenseTypical.jpeg";
 
 const HomeScreen = () => {
-    const { transactions, exchangeRates} = useUserData();
+    const { transactions, exchangeRates, userName} = useUserData();
     const [currency, setCurrency] = useState("INR");
     const [convertedTransactions, setConvertedTransactions] = useState([]);
     const originalTransactions = transactions ? [...transactions] : [];
@@ -32,13 +33,23 @@ const HomeScreen = () => {
         setConvertedTransactions(updatedTransactions);
     }, [currency, exchangeRates, transactions]);
 
-    if (!transactions) {
+    if (!userName) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-                <NavBar />
-                <p className="text-4xl font-bold text-gray-800 mt-10 text-center">
-                    The Smartest Finance Tracker
-                </p>
+            <div className="flex flex-col justify-center">
+                <div className="bg-cover bg-center h-screen w-full"
+                    style={{ backgroundImage: `url(${IncomeExpenseTypical})` }} >
+                    <NavBar />
+                    <p className="text-4xl font-bold text-white mt-10 text-center z-10">
+                        The Smartest Finance Tracker
+                    </p>
+                    <p className="text-4xl font-bold text-white mt-10 text-center transform transition duration-1000 ease-in-out hover:scale-105 animate-pulse z-10">
+                        FinTrack
+                    </p>
+                    <div className="">
+                        <div className=""></div>
+                        <div className=""></div>
+                    </div>
+                    </div>
             </div>
         );
     }

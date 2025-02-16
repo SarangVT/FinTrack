@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../helpers/api";
+import StockMarketTypical from "../helpers/StockMarketTypical.png";
 
 const SignUpScreen = () => {
     const navigate = useNavigate();
@@ -37,8 +38,9 @@ const SignUpScreen = () => {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center min-h-screen px-4">
-            <div className="mt-10 text-3xl md:text-4xl font-extrabold text-center text-purple-500 mb-6 font-serif">
+        <div className="flex flex-col justify-center items-center min-h-screen px-4 bg-cover bg-center h-screen w-full"
+        style={{ backgroundImage: `url(${StockMarketTypical})` }} >
+            <div className="mt-10 text-3xl md:text-4xl font-extrabold text-center text-white mb-6 font-serif filter brightness-200">
                 Register to FinTrack Now!!!
             </div>
 
