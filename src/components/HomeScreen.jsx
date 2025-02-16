@@ -16,7 +16,6 @@ const HomeScreen = () => {
     const originalTransactions = transactions ? [...transactions] : [];
     const selectedCurrency = CURRENCIES.find(c => c.code === currency);
     const currencySymbol = selectedCurrency ? selectedCurrency.symbol : "";
-    console.log(exchangeRates);
     useEffect(() => {
         if (!exchangeRates || currency === "INR") {
             setConvertedTransactions(originalTransactions);
@@ -24,7 +23,6 @@ const HomeScreen = () => {
         }
         
         const rate = exchangeRates[`INR${currency}`];
-        console.log(rate);
         const updatedTransactions = originalTransactions.map((t) => ({
             ...t,
             amount: (t.amount * rate).toFixed(2),

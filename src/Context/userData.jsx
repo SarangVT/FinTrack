@@ -23,10 +23,10 @@ export const UserContextProvider = ({children}) => {
             console.error("Invalid token:", error);
             return null;
         }
-    }, []);
+    }, [userName]);
     useEffect(()=> {
         fetchTransactions();
-    },[]);
+    },[userName]);
 
     const fetchTransactions = async () => {
         try {
@@ -67,7 +67,6 @@ export const UserContextProvider = ({children}) => {
         };
         
         fetchExchangeRates();
-        console.log("X");
     }, []);
 
     return (
