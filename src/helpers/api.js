@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:5000/v1",
+    baseURL: "https://fintrackbackend-9r6e.onrender.com/v1",
   });
   api.interceptors.request.use((config) => {
     const token = localStorage.getItem("authToken");
