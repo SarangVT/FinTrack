@@ -15,13 +15,13 @@ export const UserContextProvider = ({children}) => {
     
     useEffect(() => {
         const token = localStorage.getItem("authToken");
-        if (!token) return null;
+        if (!token) return;
         try {
             const decoded = jwtDecode(token);
             setUserName(decoded.username);
         } catch (error) {
             console.error("Invalid token:", error);
-            return null;
+            return;
         }
     }, []);
     useEffect(()=> {
@@ -51,11 +51,10 @@ export const UserContextProvider = ({children}) => {
                     params: {
                         access_key: API_KEY,
                         currencies: CURRENCIES.map(c => c.code).join(","),
-                        source: "INR", // Base currency should be USD as per CurrencyLayer free plan
+                        source: "INR",
                         format: 1
                     }
                 });
-                
                 if (response.data.success) {
                     setExchangeRates(response.data.quotes);
                 } else {

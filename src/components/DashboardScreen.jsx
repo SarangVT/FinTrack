@@ -7,7 +7,6 @@ import { CURRENCIES } from "../helpers/countryCurrency";
 
 const DashboardScreen = () => {
     const { transactions, exchangeRates } = useUserData();
-    console.log(transactions);
     const [showModal, setShowModal] = useState(false);
     const [currBalance, setCurrBalance] = useState(0);
     const [currency, setCurrency] = useState("INR");
@@ -18,7 +17,6 @@ const DashboardScreen = () => {
     const selectedCurrency = CURRENCIES.find(c => c.code === currency);
     const currencySymbol = selectedCurrency ? selectedCurrency.symbol : "";
     const currencyCode = selectedCurrency ? selectedCurrency.code : "";
-    // Convert transactions based on selected currency.
     useEffect(() => {
         if (!exchangeRates || currency === "INR") {
             setConvertedTransactions(originalTransactions);
@@ -34,8 +32,6 @@ const DashboardScreen = () => {
         setConvertedTransactions(updatedTransactions);
     }, [currency, exchangeRates, transactions]);
 
-    // Calculate the moving average spending limit based on monthly expenses.
-    // Only include transactions where increment is false (i.e. debits/expenses).
     useEffect(() => {
         if (!transactions || transactions.length === 0) {
             setSpendingLimit(0);
@@ -45,8 +41,7 @@ const DashboardScreen = () => {
         const expensesByMonth = {};
 
         transactions.forEach(({ amount, date, increment }) => {
-            if (!increment) { // Only consider debit transactions (expenses)
-                // Since 'date' is already an ISO string, directly slice it.
+            if (!increment) { 
                 const monthYear = date.slice(0, 7);
                 expensesByMonth[monthYear] = (expensesByMonth[monthYear] || 0) + parseFloat(amount);
             }
@@ -99,7 +94,6 @@ const DashboardScreen = () => {
                 </select>
             </div>
             
-            {/* Display the spending limit */}
             <div className="m-4 text-lg font-semibold text-gray-700">
                 <p>Spending Limit: {currencySymbol}{spendingLimit}</p>
             </div>

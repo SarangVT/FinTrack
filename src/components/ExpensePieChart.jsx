@@ -50,7 +50,7 @@ const ExpensePieChart = ({ data , symbol}) => {
   };
 
   const { data: chartData, totalExpense } = getChartData();
-  const hideLegend = chartData.length > 5;
+  const hideLegend = chartData.length > 3;
 
   return (
     <div className="flex flex-col items-center gap-4">
@@ -80,7 +80,6 @@ const ExpensePieChart = ({ data , symbol}) => {
               ))}
             </Pie>
             <Tooltip formatter={(value, name, props) => [`$${value.toFixed(2)} (${props.payload.percentage})`, name]} />
-            {!hideLegend && <Legend verticalAlign="bottom" layout="horizontal" />}
           </PieChart>
         </ResponsiveContainer>
       </div>

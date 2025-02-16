@@ -50,21 +50,17 @@ const IncomePieChart = ({ data, symbol}) => {
   };
 
   const { data: chartData, totalIncome } = getChartData();
-  const hideLegend = chartData.length > 5;
+  const hideLegend = chartData.length > 3;
 
   return (
     <div className="flex flex-col items-center gap-4">
       <div className="flex gap-2 items-center">
-      <select
-        value={viewType}
-        onChange={(e) => setViewType(e.target.value)}
-        className="p-2 border-white font-bold rounded-lg bg-white focus:outline-none"
-      >
-        <option value="all">All Time</option>
-        <option value="monthly">Monthly</option>
-        <option value="yearly">Yearly</option>
-        <option value="custom">Custom</option>
-      </select>
+        <select value={viewType} onChange={(e) => setViewType(e.target.value)} className="p-2 border-white font-bold rounded-lg bg-white focus:outline-none">
+          <option value="all">All Time</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+          <option value="custom">Custom</option>
+        </select>
 
         {viewType === "custom" && (
           <>
@@ -73,6 +69,7 @@ const IncomePieChart = ({ data, symbol}) => {
           </>
         )}
       </div>
+      
       <div className="w-full p-4 shadow-lg rounded-lg bg-white">
         <h2 className="text-center font-bold">Income</h2>
         <p className="text-center font-bold">Total: {symbol}{totalIncome.toFixed(2)}</p>
@@ -83,8 +80,7 @@ const IncomePieChart = ({ data, symbol}) => {
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
             </Pie>
-            <Tooltip />
-            {!hideLegend && <Legend verticalAlign="bottom" />}
+            <Tooltip formatter={(value, name, props) => [`$${value.toFixed(2)} (${props.payload.percentage})`, name]} />
           </PieChart>
         </ResponsiveContainer>
       </div>
